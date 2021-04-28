@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyDocs.Domain.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyDocs.Domain.Entities
 {
-    public class User
+    public class User : FoundationEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
