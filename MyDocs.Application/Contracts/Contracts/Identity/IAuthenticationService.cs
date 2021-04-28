@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyDocs.Application.Identity
+namespace MyDocs.Application.Contracts.Contracts.Identity
 {
     public interface IAuthenticationService
     {

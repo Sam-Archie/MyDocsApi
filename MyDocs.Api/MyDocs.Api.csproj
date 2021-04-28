@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MyDocs.Application\MyDocs.Application.csproj" />
     <ProjectReference Include="..\MyDocs.Infrastructure\MyDocs.Infrastructure.csproj" />
     <ProjectReference Include="..\MyDocs.Persistance\MyDocs.Persistance.csproj" />

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using MyDocs.Application.Identity;
+using MyDocs.Application.Contracts.Contracts.Identity;
 using MyDocs.Application.Models.Authentication;
 using MyDocs.Domain.Entities;
 using System;
