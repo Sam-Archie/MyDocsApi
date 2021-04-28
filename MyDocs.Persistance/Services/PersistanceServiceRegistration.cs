@@ -16,7 +16,8 @@ namespace MyDocs.Persistance.Services
         public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<MyDocsContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("MyDocsConnectionString")));
+                options.UseSqlServer(configuration.GetConnectionString("MyDocsConnectionString"),
+                b => b.MigrationsAssembly(typeof(MyDocsContext).Assembly.FullName)));
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(FoundationRepository<>));
 
