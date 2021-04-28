@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDocs.Application", "MyDoc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDocs.Persistance", "MyDocs.Persistance\MyDocs.Persistance.csproj", "{5299BE87-7473-4D04-AC54-3B4E27C2FDBB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDocs.Infrastructure", "MyDocs.Infrastructure\MyDocs.Infrastructure.csproj", "{3DF4688C-F8AD-4BF6-92DE-DC202A2CCD37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{5299BE87-7473-4D04-AC54-3B4E27C2FDBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5299BE87-7473-4D04-AC54-3B4E27C2FDBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5299BE87-7473-4D04-AC54-3B4E27C2FDBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DF4688C-F8AD-4BF6-92DE-DC202A2CCD37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DF4688C-F8AD-4BF6-92DE-DC202A2CCD37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DF4688C-F8AD-4BF6-92DE-DC202A2CCD37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DF4688C-F8AD-4BF6-92DE-DC202A2CCD37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{B35D84D2-76A9-4151-AB30-613C7B76DF6A} = {A05A47A2-A251-4F01-9113-D3990615B48B}
 		{67C28ED3-58DF-458D-91D6-B970B2F4C4A0} = {A05A47A2-A251-4F01-9113-D3990615B48B}
 		{5299BE87-7473-4D04-AC54-3B4E27C2FDBB} = {E7DD372E-06FF-4668-8148-8C9133C2CB7B}
+		{3DF4688C-F8AD-4BF6-92DE-DC202A2CCD37} = {E7DD372E-06FF-4668-8148-8C9133C2CB7B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {08384CD9-B417-4611-9E13-1A41832D97F7}
