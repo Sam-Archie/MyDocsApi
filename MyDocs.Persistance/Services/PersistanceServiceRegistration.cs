@@ -21,7 +21,6 @@ namespace MyDocs.Persistance.Services
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(FoundationRepository<>));
 
-
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();

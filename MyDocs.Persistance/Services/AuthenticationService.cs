@@ -128,6 +128,7 @@ namespace MyDocs.Persistance.Services
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes),
                 signingCredentials: signingCredentials);
+
             return jwtSecurityToken;
         }
     }
