@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyDocs.Application.Contracts.Persistance
 {
-    interface ICommentReplyRepository : IAsyncRepository<CommentReply>
+    public interface ICommentReplyRepository : IAsyncRepository<CommentReply>
     {
     }
 }
