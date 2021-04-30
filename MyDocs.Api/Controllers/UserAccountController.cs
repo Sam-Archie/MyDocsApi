@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyDocs.Application.Contracts.Contracts.Identity;
+using MyDocs.Application.Contracts.Infrastructure;
 using MyDocs.Application.Models.Authentication;
+using MyDocs.Application.Models.Mail;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +16,13 @@ namespace MyDocs.Api.Controllers
     public class UserAccountController : ControllerBase
     {
         private readonly IAuthenticationService _authenticateService;
+        private readonly IEmailService _emailService;
 
-        public UserAccountController(IAuthenticationService authenticationService)
+        public UserAccountController(IAuthenticationService authenticationService, IEmailService emailService)
         {
             _authenticateService = authenticationService;
+            _emailService = emailService;
+            
         }
 
         [HttpPost("authenticate")]
@@ -29,6 +34,21 @@ namespace MyDocs.Api.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<RegistrationResponse>> RegisterAsync(RegistrationRequest request)
         {
+            var email = new Email()
+            {
+                To = request.Email,
+                Subject = $"Registration",
+                Body = $"Welcome to MyDocs,com thank you for registering to our application!",
+            };
+            try
+            {
+                await _emailService.SendEmail(email);
+            }
+            catch (Exception ex)
+            {
+                //Add some logging message here
+            }
+
             return Ok(await _authenticateService.RegisterAsync(request));
         }
     }

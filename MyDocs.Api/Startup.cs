@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MyDocs.Api.Utility;
+using MyDocs.Application.Contracts.Contracts.Identity;
 using MyDocs.Application.Serives;
 using MyDocs.Infrastructure.Services;
 using MyDocs.Persistance.Services;
@@ -33,6 +34,8 @@ namespace MyDocs.Api
             services.AddApplicationServices();
             services.AddInfrastructureServices(Configuration);
             services.AddPersistenceServices(Configuration);
+            services.AddIdentityServices(Configuration);
+
 
             AddSwagger(services);
             services.AddControllers();
