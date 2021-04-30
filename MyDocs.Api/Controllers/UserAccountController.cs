@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MyDocs.Application.Contracts.Contracts.Identity;
 using MyDocs.Application.Contracts.Infrastructure;
 using MyDocs.Application.Models.Authentication;
 using MyDocs.Application.Models.Mail;
+using MyDocs.Infrastructure.Mail;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +19,13 @@ namespace MyDocs.Api.Controllers
     {
         private readonly IAuthenticationService _authenticateService;
         private readonly IEmailService _emailService;
+        private readonly ILogger<EmailService> _logger;
 
-        public UserAccountController(IAuthenticationService authenticationService, IEmailService emailService)
+        public UserAccountController(IAuthenticationService authenticationService, IEmailService emailService, ILogger<EmailService> logger)
         {
             _authenticateService = authenticationService;
             _emailService = emailService;
-            
+            _logger = logger;
         }
 
         [HttpPost("authenticate")]
@@ -46,7 +49,7 @@ namespace MyDocs.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Add some logging message here
+                _logger.LogError($"Email to confirm that {request.FirstName} at {request.Email} falied due to an error with the mail service {ex.Message}");
             }
 
             return Ok(await _authenticateService.RegisterAsync(request));
