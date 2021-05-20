@@ -18,6 +18,7 @@ namespace MyDocs.Application.Features.Posts.Commands.CreatePost
             RuleFor(post => post.Content)
                 .NotEmpty().WithMessage("The post you have created is empty")
                 .NotNull();
+            
         }
     }
 }

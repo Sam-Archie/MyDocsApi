@@ -10,7 +10,8 @@ namespace MyDocs.Application.Features.Posts.Commands.CreatePost
 {
     public class CreatePostCommand : IRequest<CreatePostCommandResponse>
     {
-        public User UserId { get; set; }
+        public Guid UserId { get; set; }
+        public string Email { get; set; }
         public string Content { get; set; }
     }
 }
