@@ -9,8 +9,8 @@ namespace MyDocs.Application.Features.Posts.Queries.GetAllPostsQuery
 {
     public class PostListVm
     {
-        public Guid PostId { get; set; }
+        public string PostId { get; set; }
         public string Content { get; set; }
-        public User User { get; set; }
+        public IList<Post> Posts { get; set; } = new List<Post>();
     }
 }
