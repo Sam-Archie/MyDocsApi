@@ -12,9 +12,8 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Posts.Queries.GetAll
 {
     using static Testing;
 
-    public class GetAllPostsQueryTests
+    public class GetAllPostsQueryTests : TestBase
     {
-
         [Test]
 
         public async Task ShouldReturnAllPostsAndAssociatedData()
@@ -39,6 +38,7 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Posts.Queries.GetAll
 
             var result = await SendAsync(query);
 
+            result.Should().HaveCount(3);
             result.Should().NotBeNull();
             result.Should().NotBeNullOrEmpty();
         }
