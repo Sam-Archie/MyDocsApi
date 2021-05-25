@@ -14,6 +14,7 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Posts.Queries.GetAll
 
     public class GetAllPostsQueryTests
     {
+
         [Test]
 
         public async Task ShouldReturnAllPostsAndAssociatedData()
@@ -30,18 +31,16 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Posts.Queries.GetAll
                     new Post { Content = "We will never ne rid of code, because code represents the datials of the requirements", Id = Guid.Parse("{6313179F-7837-473A-A4D5-A5571B43E6A6}") },
                     new Post { Content = "The most exaggerated and memorable example I can give for what can occur when true intention of a font isn't fully understood by its users is the story of comic sans",
                         Id = Guid.Parse("{BF3F3002-7E53-441E-8B76-F6280BE284AA}"),
-            
                 }
             }
         });
         
-
             var query = new GetAllPostsQuery();
 
-            PostListVm result = await SendAsync(query);
+            var result = await SendAsync(query);
 
             result.Should().NotBeNull();
-            result.Content.Should().NotBeNullOrEmpty();
+            result.Should().NotBeNullOrEmpty();
         }
     }
 }
