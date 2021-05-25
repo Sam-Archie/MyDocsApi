@@ -10,7 +10,7 @@ namespace MyDocs.Application.Features.Posts.Queries.GetAllPostsQuery
     public class PostListVm
     {
         public string PostId { get; set; }
+        public string Title { get; set; }
         public string Content { get; set; }
-        public IList<Post> Posts { get; set; } = new List<Post>();
     }
 }

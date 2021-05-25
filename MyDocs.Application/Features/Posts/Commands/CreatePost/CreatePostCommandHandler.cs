@@ -47,6 +47,7 @@ namespace MyDocs.Application.Features.Posts.Commands.CreatePost
             {
                 var post = new Post() { 
                     User = user,
+                    Title = request.Title,
                     Content = request.Content 
                 };
                 post = await _postRepository.AddAsync(post);
