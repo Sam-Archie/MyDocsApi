@@ -47,7 +47,7 @@ namespace MyDocs.Application.IntegrationTests
                 w.EnvironmentName == "Development"));
 
             startup.ConfigureServices(services);
-
+                /*
             var currentUserServiceDescriptor = services.FirstOrDefault(d =>
     d.ServiceType == typeof(ILoggedInUserService));
 
@@ -56,7 +56,7 @@ namespace MyDocs.Application.IntegrationTests
             // Register testing version
             services.AddTransient(provider =>
                 Mock.Of<ILoggedInUserService>(s => s.UserId == _currentUserId));
-
+                */
             _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 
             _checkpoint = new Checkpoint
@@ -84,7 +84,7 @@ namespace MyDocs.Application.IntegrationTests
         {
             using var scope = _scopeFactory.CreateScope();
 
-            var mediator = scope.ServiceProvider.GetService<ISender>();
+            var mediator = scope.ServiceProvider.GetService<IMediator>();
 
             return await mediator.Send(request);
         }
@@ -117,42 +117,50 @@ namespace MyDocs.Application.IntegrationTests
 
         public static async Task<string> RunAsDefaultUserAsync()
         {
-            return await RunAsUserAsync("test@local", "Testing1234!", new string[] { });
+            return await RunAsUserAsync("Sam-Archie", "Secret1234!", new string[] { });
         }
+
 
         public static async Task<string> RunAsUserAsync(string userName, string password, string[] roles)
         {
             using var scope = _scopeFactory.CreateScope();
 
-            var userManager = scope.ServiceProvider.GetService<UserManager<User>>();
-
-            var user = new User { UserName = userName, Email = userName };
-
-            var result = await userManager.CreateAsync(user, password);
-
-            if (roles.Any())
+            try
             {
-                var roleManager = scope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+                var userManager = scope.ServiceProvider.GetService<UserManager<User>>();
 
-                foreach (var role in roles)
+                var user = new User { UserName = userName, Email = userName };
+
+                var result = await userManager.CreateAsync(user, password);
+
+                if (roles.Any())
                 {
-                    await roleManager.CreateAsync(new IdentityRole(role));
+                    var roleManager = scope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+
+                    foreach (var role in roles)
+                    {
+                        await roleManager.CreateAsync(new IdentityRole(role));
+                    }
+
+                    await userManager.AddToRolesAsync(user, roles);
                 }
 
-                await userManager.AddToRolesAsync(user, roles);
-            }
+                if (result.Succeeded)
+                {
+                    _currentUserId = user.Id;
 
-            if (result.Succeeded)
+                    return _currentUserId;
+                }
+
+                var errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
+
+                throw new Exception($"Unable to create {userName}.{Environment.NewLine}{errors}");
+            }
+            catch (Exception ex)
             {
-                _currentUserId = user.Id;
-
-                return _currentUserId;
+                Console.WriteLine(ex.Message);
+                throw;
             }
-
-            var errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
-
-            throw new Exception($"Unable to create {userName}.{Environment.NewLine}{errors}");
         }
-
     }
 }
