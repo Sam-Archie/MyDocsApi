@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyDocs.Application.Models
+namespace MyDocs.Application.Models.Common
 {
     public class Result
     {

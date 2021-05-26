@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using MyDocs.Application.Models;
+using MyDocs.Application.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;

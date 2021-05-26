@@ -26,9 +26,19 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Posts.Queries.GetAll
                 LastName = "Samson",
                 Posts =
                 {
-                    new Post { Content = "Hello World", Id = Guid.Parse("{B0788D2F-8003-43C1-92A4-EDC76A7C5DDE}") },
-                    new Post { Content = "We will never ne rid of code, because code represents the datials of the requirements", Id = Guid.Parse("{6313179F-7837-473A-A4D5-A5571B43E6A6}") },
-                    new Post { Content = "The most exaggerated and memorable example I can give for what can occur when true intention of a font isn't fully understood by its users is the story of comic sans",
+                    new Post { 
+                        Content = "Hello World", 
+                        Title = "First ever line of code",
+                        Id = Guid.Parse("{B0788D2F-8003-43C1-92A4-EDC76A7C5DDE}") 
+                    },
+                    new Post { 
+                        Content = "We will never ne rid of code, because code represents the datials of the requirements", 
+                        Title = "Text from Clean Code",
+                        Id = Guid.Parse("{6313179F-7837-473A-A4D5-A5571B43E6A6}") 
+                    },
+                    new Post { 
+                        Content = "The most exaggerated and memorable example I can give for what can occur when true intention of a font isn't fully understood by its users is the story of comic sans",
+                        Title = "Text from Design for Hackers",
                         Id = Guid.Parse("{BF3F3002-7E53-441E-8B76-F6280BE284AA}"),
                 }
             }
