@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using MyDocs.Application.Exceptions;
 using MyDocs.Application.Features.Posts.Commands.CreatePost;
 using MyDocs.Domain.Entities;
 using NUnit.Framework;
@@ -14,6 +15,16 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Posts.Commands.Posts
 
     public class CreatePostTests : TestBase
     {
+        [Test]
+        public void ShouldRequireMinimumFields()
+        {
+            var command = new CreatePostCommand();
+
+            FluentActions.Invoking(() =>
+                SendAsync(command)).Should().Throw<ValidationException>();
+        }
+
+
         [Test]
         public async Task ShouldCreatePost()
         {
@@ -34,8 +45,6 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Posts.Commands.Posts
             post.Should().NotBeNull();
             post.UserId.Should().Be(command.UserId.ToString());
             post.Content.Should().Be(command.Content);
-
-
         }
     }
 }

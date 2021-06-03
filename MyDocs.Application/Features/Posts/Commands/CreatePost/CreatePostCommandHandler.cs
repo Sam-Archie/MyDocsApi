@@ -43,7 +43,7 @@ namespace MyDocs.Application.Features.Posts.Commands.CreatePost
                 UserId = user.Id,
                 Id = Guid.NewGuid(),
                 Title = request.Title,
-                Content = request.Content,
+                 Content = request.Content,
             });
 
             return post.Id;
