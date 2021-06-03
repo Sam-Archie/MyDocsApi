@@ -16,14 +16,14 @@ namespace MyDocs.Application.Features.Posts.Commands.CreatePost
     public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, CreatePostCommandResponse>
     {
         private readonly UserManager<User> _userManager;
-        private readonly ILogger<CreatePostCommandHandler> _logger;
+        //private readonly ILogger<CreatePostCommandHandler> _logger;
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
 
-        public CreatePostCommandHandler(IMapper mapper, IPostRepository postRepository, ILogger<CreatePostCommandHandler> logger, UserManager<User> userManager)
+        public CreatePostCommandHandler(IMapper mapper, IPostRepository postRepository/* ILogger<CreatePostCommandHandler> logger*/, UserManager<User> userManager)
         {
             _userManager = userManager;
-            _logger = logger;
+            //_logger = logger;
             _postRepository = postRepository;
             _mapper = mapper;
         }
@@ -45,8 +45,9 @@ namespace MyDocs.Application.Features.Posts.Commands.CreatePost
             }
             if (createPostCommandResponse.Success)
             {
-                var post = new Post() { 
-                    User = user,
+                var post = new Post() {
+                    //User = user,
+                    Title = request.Title,
                     Content = request.Content 
                 };
                 post = await _postRepository.AddAsync(post);

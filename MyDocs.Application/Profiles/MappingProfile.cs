@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MyDocs.Application.Features.Posts.Commands.CreatePost;
 using MyDocs.Application.Features.Posts.Queries.GetAllPostsQuery;
 using MyDocs.Domain.Entities;
 using System;
@@ -14,6 +15,7 @@ namespace MyDocs.Application.Profiles
         public MappingProfile()
         {
             CreateMap<Post, PostListVm>().ReverseMap();
+            CreateMap<Post, CreatePostDto>().ReverseMap();
         }
     }
 }

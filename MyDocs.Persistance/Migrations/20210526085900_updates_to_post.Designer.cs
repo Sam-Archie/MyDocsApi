@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyDocs.Persistance;
 
 namespace MyDocs.Persistance.Migrations
 {
     [DbContext(typeof(MyDocsContext))]
-    partial class MyDocsContextModelSnapshot : ModelSnapshot
+    [Migration("20210526085900_updates_to_post")]
+    partial class updates_to_post
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
