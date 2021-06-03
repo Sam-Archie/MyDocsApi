@@ -33,22 +33,14 @@ namespace MyDocs.Api.Controllers
             return Ok(dtos);
         }
 
-        //private async Task<User> CurrentUser()
-        //{
-        //    return await _userManager.GetUserAsync().Id;
-        //}
-
         [HttpPost("create", Name = "CreatePost")]
         [Authorize]
-        public async Task<ActionResult<CreatePostCommandResponse>> Create([FromBody] CreatePostCommand createPostCommand)
+        public async Task<ActionResult<Guid>> Create([FromBody] CreatePostCommand createPostCommand)
         {
-            //createPostCommand.UserId = await CurrentUser().UserId;
             var response = await _mediator.Send(createPostCommand);
             return Ok(response);
         }
     }
 }
-
-//Put this into a controller to get the current user. Once you have this you can add this to the creatte post command
 
 

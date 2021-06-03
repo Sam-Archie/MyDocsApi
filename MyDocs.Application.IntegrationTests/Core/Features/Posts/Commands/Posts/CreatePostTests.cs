@@ -17,7 +17,7 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Posts.Commands.Posts
         [Test]
         public async Task ShouldCreatePost()
         {
-            var userId = Guid.NewGuid().ToString();
+            var userId = await RunAsDefaultUserAsync();
 
             var command = new CreatePostCommand
             {
@@ -28,10 +28,10 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Posts.Commands.Posts
 
             var response = await SendAsync(command);
 
-            var postDto = await FindAsync<Post>(response.Post.PostId);
+            var postDto = await FindAsync<Post>(response);
 
             postDto.Should().NotBeNull();
-            postDto.User.Id.Should().Be(command.UserId.ToString());
+            postDto.UserId.Should().Be(command.UserId.ToString());
             postDto.Content.Should().Be(command.Content);
 
 

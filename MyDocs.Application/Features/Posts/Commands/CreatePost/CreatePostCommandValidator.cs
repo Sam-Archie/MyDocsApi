@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MyDocs.Application.Contracts.Persistance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace MyDocs.Application.Features.Posts.Commands.CreatePost
 {
     public class CreatePostCommandValidator : AbstractValidator<CreatePostCommand>
     {
-        public CreatePostCommandValidator()
+        public CreatePostCommandValidator(IPostRepository postRepository)
         {
             RuleFor(post => post.UserId)
                 .NotEmpty().WithMessage("You must create an account to create a post.")

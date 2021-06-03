@@ -15,7 +15,8 @@ namespace MyDocs.Application.Profiles
         public MappingProfile()
         {
             CreateMap<Post, PostListVm>().ReverseMap();
-            CreateMap<Post, CreatePostDto>().ReverseMap();
+            CreateMap<Post, CreatePostCommand>().ReverseMap();
+            CreateMap<Post, PostDto>().ReverseMap();
         }
     }
 }

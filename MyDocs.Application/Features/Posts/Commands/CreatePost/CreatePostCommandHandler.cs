@@ -13,47 +13,42 @@ using System.Threading.Tasks;
 
 namespace MyDocs.Application.Features.Posts.Commands.CreatePost
 {
-    public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, CreatePostCommandResponse>
+    public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, Guid>
     {
         private readonly UserManager<User> _userManager;
-        //private readonly ILogger<CreatePostCommandHandler> _logger;
+        private readonly ILogger<CreatePostCommandHandler> _logger;
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
 
-        public CreatePostCommandHandler(IMapper mapper, IPostRepository postRepository/* ILogger<CreatePostCommandHandler> logger*/, UserManager<User> userManager)
+        public CreatePostCommandHandler(IMapper mapper, IPostRepository postRepository, ILogger<CreatePostCommandHandler> logger, UserManager<User> userManager)
         {
             _userManager = userManager;
-            //_logger = logger;
+            _logger = logger;
             _postRepository = postRepository;
             _mapper = mapper;
         }
-        public async Task<CreatePostCommandResponse> Handle(CreatePostCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreatePostCommand request, CancellationToken cancellationToken)
         {
-            var createPostCommandResponse = new CreatePostCommandResponse();
-            var validation = new CreatePostCommandValidator();
+            var validation = new CreatePostCommandValidator(_postRepository);
             var validationResult = await validation.ValidateAsync(request);
-            var user = await _userManager.FindByIdAsync(request.UserId.ToString());
+            var currentUser = await _userManager.FindByIdAsync(request.UserId.ToString());
 
             if (validationResult.Errors.Count > 0)
+                throw new Exceptions.ValidationException(validationResult);
+
+            var post = new Post()
             {
-                createPostCommandResponse.Success = false;
-                createPostCommandResponse.ValidationErrors = new List<string>();
-                foreach (var error in validationResult.Errors)
-                {
-                    createPostCommandResponse.ValidationErrors.Add(error.ErrorMessage);
-                }
-            }
-            if (createPostCommandResponse.Success)
-            {
-                var post = new Post() {
-                    //User = user,
-                    Title = request.Title,
-                    Content = request.Content 
-                };
-                post = await _postRepository.AddAsync(post);
-                createPostCommandResponse.Post = _mapper.Map<CreatePostDto>(post);
-            }
-            return createPostCommandResponse;
+                UserId = currentUser.Id,
+                Title = request.Title,
+                Content = request.Content
+            };
+
+            post = _mapper.Map<Post>(request);
+
+            post = await _postRepository.AddAsync(post);
+
+            return post.Id;
+           }
         }
     }
-}
+
