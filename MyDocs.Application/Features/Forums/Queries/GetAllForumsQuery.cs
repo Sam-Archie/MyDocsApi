@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyDocs.Application.Features.Forums.Queries
 {
-    public class GetAllForumsQuery : IRequest<List<Forum>>
+    public class GetAllForumsQuery : IRequest<List<ForumListVm>>
     {
     }
 }

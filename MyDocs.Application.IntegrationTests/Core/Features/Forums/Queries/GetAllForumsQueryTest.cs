@@ -14,15 +14,7 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Forums.Queries
 
     public class GetAllPostsQueryTests : TestBase
     {
-        [Test]
-        public async Task ShouldReturnPriorityLevels()
-        {
-            var query = new GetAllForumsQuery();
 
-            var result = await SendAsync(query);
-
-            result.Should().NotBeEmpty();
-        }
 
         [Test]
         
@@ -84,7 +76,6 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Forums.Queries
 
             var result = await SendAsync(query);
 
-            result.FirstOrDefault().Posts.Should().HaveCount(2);
             result.Should().NotBeNull();
             result.Should().NotBeNullOrEmpty();
         }
