@@ -9,8 +9,6 @@ namespace MyDocs.Application.Features.Forums.Commands
 {
     public class ForumDto
     {
-        public string ForumId { get; set; }
-        public IList<Post>? Posts { get; set; } = new List<Post>();
-        public string Name { get; set; }
+        
     }
 }

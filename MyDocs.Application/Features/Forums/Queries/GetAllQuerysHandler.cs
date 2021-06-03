@@ -25,8 +25,8 @@ namespace MyDocs.Application.Features.Forums.Queries
         }
         public async Task<List<ForumListVm>> Handle(GetAllForumsQuery request, CancellationToken cancellationToken)
         {
-            var allPostsByName = (await _forumRepository.ListAllAsync()).OrderBy(post => post.Name);
-            return _mapper.Map<List<ForumListVm>>(allPostsByName);
+            var allForumsByName = (await _forumRepository.ListAllAsync()).OrderBy(forum => forum.Name);
+            return _mapper.Map<List<ForumListVm>>(allForumsByName);
         }
     }
 }

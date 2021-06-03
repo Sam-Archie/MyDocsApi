@@ -12,9 +12,8 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Forums.Queries
 {
     using static Testing;
 
-    public class GetAllPostsQueryTests : TestBase
+    public class GetAllForumQueryTests : TestBase
     {
-
 
         [Test]
         
@@ -23,15 +22,12 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Forums.Queries
             var Head_HonchoId = Guid.NewGuid().ToString();
             var BeerManId = Guid.NewGuid().ToString();
             var HairManId = Guid.NewGuid().ToString();
-
-
-            await AddAsync(
-                new Forum
+            await AddAsync(new Forum
                 {
                     Name = "Marsala Dreams",
                     IsPrivate = false,
                     ForumId = Guid.NewGuid(),
-                    Posts =
+                    Posts = new List<Post>()
                     {
                         new Post
                         {
@@ -46,7 +42,7 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Forums.Queries
                             Content = "Marsala is literally the greatest thing in the world",
                         }
                     },
-                    User =
+                    User = new List<User>()
                         {
                             new User
                             {
