@@ -31,21 +31,20 @@ namespace MyDocs.Application.Features.Posts.Commands.CreatePost
         {
             var validation = new CreatePostCommandValidator(_postRepository);
             var validationResult = await validation.ValidateAsync(request);
-            var currentUser = await _userManager.FindByIdAsync(request.UserId.ToString());
+            var user = await _userManager.FindByIdAsync(request.UserId.ToString());
 
             if (validationResult.Errors.Count > 0)
                 throw new Exceptions.ValidationException(validationResult);
 
-            var post = new Post()
+            var post = _mapper.Map<Post>(request);
+
+            post = await _postRepository.AddAsync(new Post
             {
-                UserId = currentUser.Id,
+                UserId = user.Id,
+                Id = Guid.NewGuid(),
                 Title = request.Title,
-                Content = request.Content
-            };
-
-            post = _mapper.Map<Post>(request);
-
-            post = await _postRepository.AddAsync(post);
+                Content = request.Content,
+            });
 
             return post.Id;
            }

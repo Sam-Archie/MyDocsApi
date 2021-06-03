@@ -34,7 +34,7 @@ namespace MyDocs.Api.Controllers
         }
 
         [HttpPost("create", Name = "CreatePost")]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult<Guid>> Create([FromBody] CreatePostCommand createPostCommand)
         {
             var response = await _mediator.Send(createPostCommand);

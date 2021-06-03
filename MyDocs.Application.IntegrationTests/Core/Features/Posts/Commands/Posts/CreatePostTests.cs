@@ -26,13 +26,14 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Posts.Commands.Posts
                 Content = "Links are the defining feature of the web because they allow you to move from one page to another"
             };
 
+
             var response = await SendAsync(command);
 
-            var postDto = await FindAsync<Post>(response);
+            var post = await FindAsync<Post>(response);
 
-            postDto.Should().NotBeNull();
-            postDto.UserId.Should().Be(command.UserId.ToString());
-            postDto.Content.Should().Be(command.Content);
+            post.Should().NotBeNull();
+            post.UserId.Should().Be(command.UserId.ToString());
+            post.Content.Should().Be(command.Content);
 
 
         }
