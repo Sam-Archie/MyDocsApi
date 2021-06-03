@@ -20,9 +20,9 @@ namespace MyDocs.Application.Features.Posts.Commands.CreatePost
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
 
-        public CreatePostCommandHandler(IMapper mapper, IPostRepository postRepository/* ILogger<CreatePostCommandHandler> logger,*/ /*UserManager<User> userManager*/)
+        public CreatePostCommandHandler(IMapper mapper, IPostRepository postRepository/* ILogger<CreatePostCommandHandler> logger*/, UserManager<User> userManager)
         {
-            //_userManager = userManager;
+            _userManager = userManager;
             //_logger = logger;
             _postRepository = postRepository;
             _mapper = mapper;
@@ -32,7 +32,7 @@ namespace MyDocs.Application.Features.Posts.Commands.CreatePost
             var createPostCommandResponse = new CreatePostCommandResponse();
             var validation = new CreatePostCommandValidator();
             var validationResult = await validation.ValidateAsync(request);
-            //var user = await _userManager.FindByIdAsync(request.UserId.ToString());
+            var user = await _userManager.FindByIdAsync(request.UserId.ToString());
 
             if (validationResult.Errors.Count > 0)
             {

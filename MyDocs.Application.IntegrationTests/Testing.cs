@@ -47,7 +47,7 @@ namespace MyDocs.Application.IntegrationTests
                 w.EnvironmentName == "Development"));
 
             startup.ConfigureServices(services);
-                /*
+
             var currentUserServiceDescriptor = services.FirstOrDefault(d =>
     d.ServiceType == typeof(ILoggedInUserService));
 
@@ -56,7 +56,7 @@ namespace MyDocs.Application.IntegrationTests
             // Register testing version
             services.AddTransient(provider =>
                 Mock.Of<ILoggedInUserService>(s => s.UserId == _currentUserId));
-                */
+
             _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 
             _checkpoint = new Checkpoint
@@ -119,6 +119,7 @@ namespace MyDocs.Application.IntegrationTests
         {
             return await RunAsUserAsync("Sam-Archie", "Secret1234!", new string[] { });
         }
+
 
 
         public static async Task<string> RunAsUserAsync(string userName, string password, string[] roles)
