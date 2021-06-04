@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyDocs.Application.Features.Forums.Commands.CreateForum;
 using MyDocs.Application.Features.Forums.Queries.GetAllForums;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,14 @@ namespace MyDocs.Api.Controllers
         {
             var allForums = await _mediator.Send(new GetAllForumsQuery());
             return Ok(allForums);
+        }
+
+        [HttpPost("create", Name = "CreateForum")]
+        //[Authorize]
+        public async Task<ActionResult<Guid>> Create([FromBody] CreateForumCommand createForumCommand)
+        {
+            var response = await _mediator.Send(createForumCommand);
+            return Ok(response);
         }
     }
 }
