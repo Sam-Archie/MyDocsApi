@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyDocs.Application.Features.Posts.Commands.CreatePost
 {
-    public class CreatePostCommand : IRequest<CreatePostCommandResponse>
+    public class CreatePostCommand : IRequest<Guid>
     {
         public Guid UserId { get; set; }
         public string Title { get; set; }

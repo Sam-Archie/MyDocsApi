@@ -18,37 +18,34 @@ namespace MyDocs.Api.Controllers
     public class PostController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly UserManager<User> _userManager;
 
-        public PostController(IMediator mediator, UserManager<User> userManager)
+        public PostController(IMediator mediator)
         {
             _mediator = mediator;
-            _userManager = userManager;
         }
         [HttpGet("all", Name = "GetAllPosts")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<PostListVm>>> GetAllPosts()
         {
-            var dtos = await _mediator.Send(new GetAllPostsQuery());
-            return Ok(dtos);
+            var listOfAllPosts = await _mediator.Send(new GetAllPostsQuery());
+            return Ok(listOfAllPosts);
         }
 
-        //private async Task<User> CurrentUser()
+        //[HttpGet("{id}", Name = "GetPostById")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //public async Task<ActionResult<PostDto>> GetPostById(Guid id)
         //{
-        //    return await _userManager.GetUserAsync().Id;
+            
         //}
 
         [HttpPost("create", Name = "CreatePost")]
-        [Authorize]
-        public async Task<ActionResult<CreatePostCommandResponse>> Create([FromBody] CreatePostCommand createPostCommand)
+        //[Authorize]
+        public async Task<ActionResult<Guid>> Create([FromBody] CreatePostCommand createPostCommand)
         {
-            //createPostCommand.UserId = await CurrentUser().UserId;
             var response = await _mediator.Send(createPostCommand);
             return Ok(response);
         }
     }
 }
-
-//Put this into a controller to get the current user. Once you have this you can add this to the creatte post command
 
 

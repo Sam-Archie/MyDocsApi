@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
+using MyDocs.Application.Features.Forums.Commands.CreateForum;
+using MyDocs.Application.Features.Forums.Queries.GetAllForums;
 using MyDocs.Application.Features.Posts.Commands.CreatePost;
 using MyDocs.Application.Features.Posts.Queries.GetAllPostsQuery;
 using MyDocs.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyDocs.Application.Profiles
 {
@@ -15,7 +12,10 @@ namespace MyDocs.Application.Profiles
         public MappingProfile()
         {
             CreateMap<Post, PostListVm>().ReverseMap();
-            CreateMap<Post, CreatePostDto>().ReverseMap();
+            CreateMap<Post, CreatePostCommand>().ReverseMap();
+            CreateMap<Post, PostDto>().ReverseMap();
+            CreateMap<Forum, ForumListVm>().ReverseMap();
+            CreateMap<Forum, CreateForumCommand>().ReverseMap();
         }
     }
 }

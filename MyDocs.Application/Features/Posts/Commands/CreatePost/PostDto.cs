@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace MyDocs.Application.Features.Posts.Commands.CreatePost
 {
-    public class CreatePostDto
+    public class PostDto
     {
         public Guid PostId { get; set; }
+        public string UserId { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
     }

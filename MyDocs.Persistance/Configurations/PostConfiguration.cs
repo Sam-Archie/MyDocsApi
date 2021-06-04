@@ -15,6 +15,10 @@ namespace MyDocs.Persistance.Configurations
         {
             builder.Property(post => post.Content)
                 .IsRequired();
+            builder.Property(post => post.UserId)
+                .IsRequired();
+            builder.Property(post => post.Title)
+                .IsRequired();
         }
     }
 }

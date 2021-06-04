@@ -8,6 +8,6 @@ namespace MyDocs.Application.Features.Posts.Commands.CreatePost
         {
 
         }
-        public CreatePostDto Post { get; set; }
+        public PostDto Post { get; set; }
     }
 }

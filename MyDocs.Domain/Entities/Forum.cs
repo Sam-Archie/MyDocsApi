@@ -12,6 +12,7 @@ namespace MyDocs.Domain.Entities
         public Guid ForumId { get; set; }
         public bool IsPrivate { get; set; }
         public string Name { get; set; }
+        public Guid OwnerId { get; set; }
         public List<User> User { get; set; } = new List<User>();
         public List<Post> Posts { get; set; } = new List<Post>();
         public List<Tag> Tags { get; set; } = new List<Tag>();

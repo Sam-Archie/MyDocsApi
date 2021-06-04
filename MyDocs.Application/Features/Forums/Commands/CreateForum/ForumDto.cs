@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyDocs.Application.Contracts.Persistance
+namespace MyDocs.Application.Features.Forums.Commands.CreateForum
 {
-    public interface IForumRepository : IAsyncRepository<Forum>
+    public class ForumDto
     {
-        Task<bool> IsForumNameUnique(string name);
+
     }
 }

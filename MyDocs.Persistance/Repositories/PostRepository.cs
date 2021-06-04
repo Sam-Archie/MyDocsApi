@@ -12,7 +12,8 @@ namespace MyDocs.Persistance.Repositories
     {
         public PostRepository(MyDocsContext dbContext) : base(dbContext)
         {
-
+           
         }
+    
     }
 }
