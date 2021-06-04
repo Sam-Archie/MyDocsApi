@@ -1,14 +1,10 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyDocs.Application.Features.Posts.Commands.CreatePost;
 using MyDocs.Application.Features.Posts.Queries.GetAllPostsQuery;
-using MyDocs.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyDocs.Api.Controllers

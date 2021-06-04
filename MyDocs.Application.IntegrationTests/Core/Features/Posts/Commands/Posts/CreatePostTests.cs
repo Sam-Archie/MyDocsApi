@@ -4,9 +4,6 @@ using MyDocs.Application.Features.Posts.Commands.CreatePost;
 using MyDocs.Domain.Entities;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MyDocs.Application.IntegrationTests.Core.Features.Posts.Commands.Posts
