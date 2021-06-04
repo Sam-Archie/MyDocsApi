@@ -1,4 +1,5 @@
-﻿using MyDocs.Application.Responses;
+﻿using MyDocs.Application.Features.Posts.Queries.GetPostById;
+using MyDocs.Application.Responses;
 
 namespace MyDocs.Application.Features.Posts.Commands.CreatePost
 {
