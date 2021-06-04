@@ -18,20 +18,25 @@ namespace MyDocs.Api.Controllers
     public class PostController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly UserManager<User> _userManager;
 
-        public PostController(IMediator mediator, UserManager<User> userManager)
+        public PostController(IMediator mediator)
         {
             _mediator = mediator;
-            _userManager = userManager;
         }
         [HttpGet("all", Name = "GetAllPosts")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<PostListVm>>> GetAllPosts()
         {
-            var dtos = await _mediator.Send(new GetAllPostsQuery());
-            return Ok(dtos);
+            var listOfAllPosts = await _mediator.Send(new GetAllPostsQuery());
+            return Ok(listOfAllPosts);
         }
+
+        //[HttpGet("{id}", Name = "GetPostById")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //public async Task<ActionResult<PostDto>> GetPostById(Guid id)
+        //{
+            
+        //}
 
         [HttpPost("create", Name = "CreatePost")]
         //[Authorize]

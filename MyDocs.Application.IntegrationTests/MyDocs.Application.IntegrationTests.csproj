@@ -31,8 +31,4 @@
     <ProjectReference Include="..\MyDocs.Api\MyDocs.Api.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Core\Features\Forums\Commands\" />
-  </ItemGroup>
-
 </Project>

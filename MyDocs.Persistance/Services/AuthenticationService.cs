@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MyDocs.Application.Contracts.Contracts.Identity;
+using MyDocs.Application.Contracts.Infrastructure;
 using MyDocs.Application.Models.Authentication;
+using MyDocs.Application.Models.Mail;
 using MyDocs.Domain.Entities;
+using MyDocs.Infrastructure.Mail;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -18,15 +22,21 @@ namespace MyDocs.Persistance.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IEmailService _emailService;
+        private readonly ILogger<EmailService> _logger;
         private readonly JwtSettings _jwtSettings;
 
         public AuthenticationService(UserManager<User> userManager,
             IOptions<JwtSettings> jwtSettings,
-            SignInManager<User> signInManager)
+            SignInManager<User> signInManager,
+            IEmailService emailService,
+            ILogger<EmailService> logger)
         {
             _userManager = userManager;
             _jwtSettings = jwtSettings.Value;
             _signInManager = signInManager;
+            _emailService = emailService;
+            _logger = logger;
         }
 
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
@@ -84,6 +94,21 @@ namespace MyDocs.Persistance.Services
 
                 if (result.Succeeded)
                 {
+                    var email = new Email()
+                    {
+                        To = request.Email,
+                        Subject = $"Registration",
+                        Body = $"Welcome to MyDocs,com thank you for registering to our application!",
+                    };
+                    try
+                    {
+                        await _emailService.SendEmail(email);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError($"Email to confirm that {request.FirstName} at {request.Email} falied due to an error with the mail service {ex.Message}");
+                    }
+
                     return new RegistrationResponse() { UserId = user.Id };
                 }
                 else

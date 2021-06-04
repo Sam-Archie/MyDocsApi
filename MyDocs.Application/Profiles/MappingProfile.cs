@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using MyDocs.Application.Features.Forums.Queries;
+using MyDocs.Application.Features.Forums.Commands.CreateForum;
+using MyDocs.Application.Features.Forums.Queries.GetAllForums;
 using MyDocs.Application.Features.Posts.Commands.CreatePost;
 using MyDocs.Application.Features.Posts.Queries.GetAllPostsQuery;
 using MyDocs.Domain.Entities;
@@ -14,6 +15,7 @@ namespace MyDocs.Application.Profiles
             CreateMap<Post, CreatePostCommand>().ReverseMap();
             CreateMap<Post, PostDto>().ReverseMap();
             CreateMap<Forum, ForumListVm>().ReverseMap();
+            CreateMap<Forum, CreateForumCommand>().ReverseMap();
         }
     }
 }

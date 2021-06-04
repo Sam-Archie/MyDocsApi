@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using MyDocs.Application.Features.Forums.Queries;
+using MyDocs.Application.Features.Forums.Queries.GetAllForums;
 using MyDocs.Domain.Entities;
 using NUnit.Framework;
 using System;
@@ -12,7 +13,7 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Forums.Queries
 {
     using static Testing;
 
-    public class GetAllForumQueryTests : TestBase
+    public class GetAllForumsQueryTests : TestBase
     {
 
         [Test]
@@ -22,11 +23,13 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Forums.Queries
             var Head_HonchoId = Guid.NewGuid().ToString();
             var BeerManId = Guid.NewGuid().ToString();
             var HairManId = Guid.NewGuid().ToString();
+            var forumId = Guid.NewGuid();
             await AddAsync(new Forum
                 {
                     Name = "Marsala Dreams",
                     IsPrivate = false,
-                    ForumId = Guid.NewGuid(),
+                    ForumId = forumId,
+                    OwnerId = Guid.Parse(BeerManId),
                     Posts = new List<Post>()
                     {
                         new Post
@@ -72,6 +75,12 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Forums.Queries
 
             var result = await SendAsync(query);
 
+            var forum = result.Select(forum => forum.ForumId);
+
+
+            forum.Select(forum => forum).Should().BeEquivalentTo(forumId.ToString());
+            forum.Should().NotBeEmpty();
+            forum.Should().HaveCount(1);
             result.Should().NotBeNull();
             result.Should().NotBeNullOrEmpty();
         }

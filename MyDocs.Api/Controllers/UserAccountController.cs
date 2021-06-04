@@ -37,21 +37,6 @@ namespace MyDocs.Api.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<RegistrationResponse>> RegisterAsync(RegistrationRequest request)
         {
-            var email = new Email()
-            {
-                To = request.Email,
-                Subject = $"Registration",
-                Body = $"Welcome to MyDocs,com thank you for registering to our application!",
-            };
-            try
-            {
-                await _emailService.SendEmail(email);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Email to confirm that {request.FirstName} at {request.Email} falied due to an error with the mail service {ex.Message}");
-            }
-
             return Ok(await _authenticateService.RegisterAsync(request));
         }
     }

@@ -9,5 +9,6 @@ namespace MyDocs.Application.Contracts.Persistance
 {
     public interface IForumRepository : IAsyncRepository<Forum>
     {
+        Task<bool> IsForumNameUnique(string name);
     }
 }

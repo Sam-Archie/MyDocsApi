@@ -1,9 +1,6 @@
 ﻿using MyDocs.Application.Contracts.Persistance;
 using MyDocs.Domain.Entities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MyDocs.Persistance.Repositories
@@ -13,6 +10,12 @@ namespace MyDocs.Persistance.Repositories
         public ForumRepository(MyDocsContext dbContext) : base(dbContext)
         {
 
+        }
+
+        public Task<bool> IsForumNameUnique(string name)
+        {
+            var matches = _dbContext.Forums.Any(forum => forum.Name.Equals(name));
+            return Task.FromResult(matches);
         }
     }
 }

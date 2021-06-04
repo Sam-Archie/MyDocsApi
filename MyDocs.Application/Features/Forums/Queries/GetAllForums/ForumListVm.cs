@@ -1,7 +1,7 @@
 ﻿using MyDocs.Domain.Entities;
 using System.Collections.Generic;
 
-namespace MyDocs.Application.Features.Forums.Queries
+namespace MyDocs.Application.Features.Forums.Queries.GetAllForums
 {
     public class ForumListVm
     {
