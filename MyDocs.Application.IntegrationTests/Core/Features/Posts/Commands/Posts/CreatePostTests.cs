@@ -21,7 +21,6 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Posts.Commands.Posts
                 SendAsync(command)).Should().Throw<ValidationException>();
         }
 
-
         [Test]
         public async Task ShouldCreatePost()
         {

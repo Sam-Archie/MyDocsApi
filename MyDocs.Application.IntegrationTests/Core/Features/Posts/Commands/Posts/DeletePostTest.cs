@@ -36,9 +36,9 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Posts.Commands.Posts
                     Id = post.Id
                 });
 
-                var deletedPost = await FindAsync<Post>(post.Id);
+            var deletedPost = await FindAsync<Post>(post.Id);
 
-                deletedPost.Should().BeNull();
+            deletedPost.Should().BeNull();
             }
         }
     }

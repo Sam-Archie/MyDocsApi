@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyDocs.Application.Features.Posts.Commands.CreatePost;
+using MyDocs.Application.Features.Posts.Commands.DeletePost;
 using MyDocs.Application.Features.Posts.Queries.GetAllPostsQuery;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,17 @@ namespace MyDocs.Api.Controllers
         {
             var response = await _mediator.Send(createPostCommand);
             return Ok(response);
+        }
+
+        [HttpDelete("{id}", Name = "DeletePost")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            var deletePostCommand = new DeletePostCommand() { Id = id };
+            await _mediator.Send(deletePostCommand);
+            return NoContent();
         }
     }
 }
