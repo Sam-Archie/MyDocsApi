@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,7 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MyDocs.Api.Services;
 using MyDocs.Api.Utility;
+using MyDocs.Application.Behaviours;
+using MyDocs.Application.Contracts;
 using MyDocs.Application.Contracts.Contracts.Identity;
 using MyDocs.Application.Serives;
 using MyDocs.Infrastructure.Services;
@@ -35,7 +39,10 @@ namespace MyDocs.Api
             services.AddInfrastructureServices(Configuration);
             services.AddPersistenceServices(Configuration);
             services.AddIdentityServices(Configuration);
+            services.AddTransient<ILoggedInUserService, LoggedInUserService>();
+            //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
+            services.AddHttpContextAccessor();
 
             AddSwagger(services);
             services.AddControllers();

@@ -16,7 +16,7 @@ namespace MyDocs.Persistance.Repositories
            
         }
         
-        public async Task<Post> GetPostById(Guid id)
+        public async Task<Post> GetPostByIdAsync(Guid id)
         {
             var post = await _dbContext.Posts.Include(p => p.Comments)
                 .ThenInclude(comment => comment.Replies)
@@ -26,7 +26,7 @@ namespace MyDocs.Persistance.Repositories
             return post;
         }
 
-        public async Task<List<Post>> GetUserPosts(Guid userId)
+        public async Task<List<Post>> GetUserPostsAsync(Guid userId)
         {
             var postList = await _dbContext.Posts.Include(p => p.Comments)
                .ThenInclude(comment => comment.Replies)

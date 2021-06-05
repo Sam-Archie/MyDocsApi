@@ -24,6 +24,7 @@ namespace MyDocs.Application.Features.Forums.Queries.GetAllForums
         {
             var allForumsByName = (await _forumRepository.ListAllAsync()).OrderBy(forum => forum.Name);
 
+      
             return _mapper.Map<List<ForumListVm>>(allForumsByName);
         }
     }

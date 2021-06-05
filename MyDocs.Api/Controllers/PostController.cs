@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyDocs.Application.Features.Posts.Commands.CreatePost;
 using MyDocs.Application.Features.Posts.Commands.DeletePost;
 using MyDocs.Application.Features.Posts.Queries.GetAllPostsQuery;
+using MyDocs.Application.Features.Posts.Queries.GetPostById;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -28,12 +29,13 @@ namespace MyDocs.Api.Controllers
             return Ok(listOfAllPosts);
         }
 
-        //[HttpGet("{id}", Name = "GetPostById")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public async Task<ActionResult<PostDto>> GetPostById(Guid id)
-        //{
-            
-        //}
+        [HttpGet("{id}", Name = "GetPostById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<PostDto>> GetPostById(Guid id)
+        {
+            var post = await _mediator.Send(new GetPostByIdQuery() { PostId = id });
+            return Ok(post);
+        }
 
         [HttpPost("create", Name = "CreatePost")]
         //[Authorize]

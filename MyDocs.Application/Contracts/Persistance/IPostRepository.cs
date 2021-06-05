@@ -9,6 +9,9 @@ namespace MyDocs.Application.Contracts.Persistance
 {
     public interface IPostRepository : IAsyncRepository<Post>
     {
+        Task<Post> GetPostByIdAsync(Guid id);
 
+        Task<List<Post>> GetUserPostsAsync(Guid userId);
+      
     }
 }

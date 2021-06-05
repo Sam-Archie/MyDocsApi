@@ -9,6 +9,6 @@ namespace MyDocs.Application.Features.Posts.Commands.CreatePost
         {
 
         }
-        public PostDto Post { get; set; }
+        //public PostDto Post { get; set; }
     }
 }
