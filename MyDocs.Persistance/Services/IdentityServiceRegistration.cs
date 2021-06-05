@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using MyDocs.Application.Contracts;
 using MyDocs.Application.Contracts.Contracts.Identity;
 using MyDocs.Application.Models.Authentication;
 using MyDocs.Domain.Entities;
@@ -26,6 +27,7 @@ namespace MyDocs.Persistance.Services
                 .AddEntityFrameworkStores<MyDocsContext>().AddDefaultTokenProviders();
 
             services.AddTransient<IAuthenticationService, AuthenticationService>();
+  
 
             services.AddAuthentication(options =>
             {

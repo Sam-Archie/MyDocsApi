@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using MyDocs.Application.Features.Forums.Commands.CreateForum;
 using MyDocs.Application.Features.Forums.Queries.GetAllForums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyDocs.Api.Controllers

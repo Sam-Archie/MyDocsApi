@@ -8,7 +8,5 @@ namespace MyDocs.Application.Features.Forums.Queries.GetAllForums
         public string ForumId { get; set; }
         public string Name { get; set; }
         public bool IsPrivate { get; set; }
-        public List<Post> Posts { get; set; }
-        public List<User> Users { get; set; }
     }
 }

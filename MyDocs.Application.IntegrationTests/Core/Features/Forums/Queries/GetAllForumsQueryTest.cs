@@ -24,13 +24,14 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Forums.Queries
             var BeerManId = Guid.NewGuid().ToString();
             var HairManId = Guid.NewGuid().ToString();
             var forumId = Guid.NewGuid();
-            await AddAsync(new Forum
-                {
-                    Name = "Marsala Dreams",
-                    IsPrivate = false,
-                    ForumId = forumId,
-                    OwnerId = Guid.Parse(BeerManId),
-                    Posts = new List<Post>()
+
+            var testForum = new Forum()
+            {
+                Name = "Marsala Nightmares",
+                IsPrivate = false,
+                ForumId = forumId,
+                OwnerId = Guid.Parse(HairManId),
+                Posts = new List<Post>()
                     {
                         new Post
                         {
@@ -45,7 +46,7 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Forums.Queries
                             Content = "Marsala is literally the greatest thing in the world",
                         }
                     },
-                    User = new List<User>()
+                User = new List<User>()
                         {
                             new User
                             {
@@ -69,20 +70,19 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Forums.Queries
                                 UserName = "Hair_Man",
                             }
                         }
-                });
+            };
+
+            await AddAsync(testForum);
 
             var query = new GetAllForumsQuery();
 
             var result = await SendAsync(query);
 
-            var forum = result.Select(forum => forum.ForumId);
+            var forum = result.FirstOrDefault(forum => forum.ForumId == forumId.ToString());
 
+            result.Should().NotBeEmpty();
 
-            forum.Select(forum => forum).Should().BeEquivalentTo(forumId.ToString());
-            forum.Should().NotBeEmpty();
-            forum.Should().HaveCount(1);
-            result.Should().NotBeNull();
-            result.Should().NotBeNullOrEmpty();
+            forum.Should().NotBeNull();
         }
     }
 }

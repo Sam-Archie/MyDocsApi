@@ -1,14 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
 using MyDocs.Application.Contracts.Contracts.Identity;
-using MyDocs.Application.Contracts.Infrastructure;
 using MyDocs.Application.Models.Authentication;
-using MyDocs.Application.Models.Mail;
-using MyDocs.Infrastructure.Mail;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyDocs.Api.Controllers
@@ -18,14 +10,12 @@ namespace MyDocs.Api.Controllers
     public class UserAccountController : ControllerBase
     {
         private readonly IAuthenticationService _authenticateService;
-        private readonly IEmailService _emailService;
-        private readonly ILogger<EmailService> _logger;
 
-        public UserAccountController(IAuthenticationService authenticationService, IEmailService emailService, ILogger<EmailService> logger)
+
+        public UserAccountController(IAuthenticationService authenticationService)
         {
             _authenticateService = authenticationService;
-            _emailService = emailService;
-            _logger = logger;
+
         }
 
         [HttpPost("authenticate")]

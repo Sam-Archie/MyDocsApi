@@ -1,4 +1,5 @@
-﻿using MyDocs.Application.Contracts.Persistance;
+﻿using Microsoft.EntityFrameworkCore;
+using MyDocs.Application.Contracts.Persistance;
 using MyDocs.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,25 @@ namespace MyDocs.Persistance.Repositories
         {
            
         }
-    
+        
+        public async Task<Post> GetPostByIdAsync(Guid id)
+        {
+            var post = await _dbContext.Posts.Include(p => p.Comments)
+                .ThenInclude(comment => comment.Replies)
+                .Include(p => p.Tags)
+                .SingleAsync(p => p.Id == id);
+
+            return post;
+        }
+
+        public async Task<List<Post>> GetUserPostsAsync(Guid userId)
+        {
+            var postList = await _dbContext.Posts.Include(p => p.Comments)
+               .ThenInclude(comment => comment.Replies)
+               .Include(p => p.Tags)
+               .Where(p => p.UserId == userId.ToString()).ToListAsync();
+
+            return postList;
+        }
     }
 }

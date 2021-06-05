@@ -1,14 +1,12 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyDocs.Application.Features.Posts.Commands.CreatePost;
+using MyDocs.Application.Features.Posts.Commands.DeletePost;
 using MyDocs.Application.Features.Posts.Queries.GetAllPostsQuery;
-using MyDocs.Domain.Entities;
+using MyDocs.Application.Features.Posts.Queries.GetPostById;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyDocs.Api.Controllers
@@ -31,12 +29,13 @@ namespace MyDocs.Api.Controllers
             return Ok(listOfAllPosts);
         }
 
-        //[HttpGet("{id}", Name = "GetPostById")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public async Task<ActionResult<PostDto>> GetPostById(Guid id)
-        //{
-            
-        //}
+        [HttpGet("{id}", Name = "GetPostById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<PostDto>> GetPostById(Guid id)
+        {
+            var post = await _mediator.Send(new GetPostByIdQuery() { PostId = id });
+            return Ok(post);
+        }
 
         [HttpPost("create", Name = "CreatePost")]
         //[Authorize]
@@ -44,6 +43,17 @@ namespace MyDocs.Api.Controllers
         {
             var response = await _mediator.Send(createPostCommand);
             return Ok(response);
+        }
+
+        [HttpDelete("{id}", Name = "DeletePost")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> Delete(Guid postId, Guid userId)
+        {
+            var deletePostCommand = new DeletePostCommand() { PostId = postId, UserId = userId };
+            await _mediator.Send(deletePostCommand);
+            return NoContent();
         }
     }
 }
