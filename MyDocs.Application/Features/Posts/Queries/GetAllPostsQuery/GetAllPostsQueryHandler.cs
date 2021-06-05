@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using MyDocs.Application.Contracts.Persistance;
+using MyDocs.Application.Exceptions;
 using MyDocs.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,10 @@ namespace MyDocs.Application.Features.Posts.Queries.GetAllPostsQuery
         public async Task <List<PostListVm>> Handle(GetAllPostsQuery request, CancellationToken cancellationToken)
         {
             var allPostsByDate = (await _postRepository.ListAllAsync()).OrderBy(post => post.CreatedAt);
+
+            if (allPostsByDate == null)
+                throw new NotFoundException(nameof(Post), allPostsByDate);
+
             return _mapper.Map<List<PostListVm>>(allPostsByDate);
         }
     }

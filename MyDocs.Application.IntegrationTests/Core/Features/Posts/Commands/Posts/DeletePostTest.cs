@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using MyDocs.Application.Exceptions;
 using MyDocs.Application.Features.Posts.Commands.CreatePost;
 using MyDocs.Application.Features.Posts.Commands.DeletePost;
 using MyDocs.Domain.Entities;
@@ -33,12 +34,39 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Posts.Commands.Posts
 
                 await SendAsync(new DeletePostCommand
                 {
-                    Id = post.Id
+                    PostId = post.Id
                 });
 
             var deletedPost = await FindAsync<Post>(post.Id);
 
             deletedPost.Should().BeNull();
+            }
+        }
+        [Test]
+        public async Task TryingToDeleteAnotherUsersPostShouldThrowException()
+        {
+            var userId = await RunAsDefaultUserAsync();
+            {
+                var command = new CreatePostCommand
+                {
+                    UserId = Guid.NewGuid(),
+                    Title = "Help",
+                    Content = "I am to be deleted!!!"
+                };
+
+                var response = await SendAsync(command);
+
+                var post = await FindAsync<Post>(response);
+
+                var commandTwo = new DeletePostCommand
+                {
+                    PostId = post.Id,
+                    UserId = Guid.Parse(userId)
+                };
+
+                  FluentActions.Invoking(() =>
+                SendAsync(commandTwo)).Should().Throw<UnauthorizedActionException>("You must own this post to delete it");
+
             }
         }
     }

@@ -21,7 +21,7 @@ namespace MyDocs.Application.IntegrationTests.Core.Features.Forums.Commands
             var command = new CreateForumCommand();
 
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
+                SendAsync(command)).Should().Throw<Exceptions.ValidationException>();
         }
 
         [Test]
