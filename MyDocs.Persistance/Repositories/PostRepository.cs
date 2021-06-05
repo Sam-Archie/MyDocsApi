@@ -18,7 +18,7 @@ namespace MyDocs.Persistance.Repositories
         
         public async Task<Post> GetPostById(Guid id)
         {
-            var post = await _dbContext.Posts.Include(post => post.Comments)
+            var post = await _dbContext.Posts.Include(p => p.Comments)
                 .ThenInclude(comment => comment.Replies)
                 .Include(p => p.Tags)
                 .SingleAsync(p => p.Id == id);

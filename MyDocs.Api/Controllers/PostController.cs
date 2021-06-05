@@ -47,9 +47,9 @@ namespace MyDocs.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> Delete(Guid id)
+        public async Task<ActionResult> Delete(Guid postId, Guid userId)
         {
-            var deletePostCommand = new DeletePostCommand() { Id = id };
+            var deletePostCommand = new DeletePostCommand() { PostId = postId, UserId = userId };
             await _mediator.Send(deletePostCommand);
             return NoContent();
         }
